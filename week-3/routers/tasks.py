@@ -1,10 +1,11 @@
 
 from fastapi import APIRouter, Depends, status
-from sqlmodel import Session
+from sqlmodel import Session, select
 from models import Task
 from schemas import TaskResponse, TaskCreate, TaskPatch, TaskPut
 from crud import create_new_task, get_task_by_name, update_field, update_task, delete_task, get_all_tasks, assign_task
 from database import get_session
+from fastapi import Query
 task_router = APIRouter(
     prefix="/tasks",
     tags=["Tasks"]
@@ -64,3 +65,24 @@ def assign_task_to_user(
     return assign_task(task_id, user_id, session)
 
 
+#pagination
+@task_router.get("/all-tasks/")
+def pagination(
+        skip:int = Query(0, ge=0), limit:int=Query(10, ge=1, le=100), session=Depends(get_session)
+):
+   tasks = session.exec(
+        select(Task).offset(skip).limit(limit)
+    ).all()
+   
+   return tasks
+@task_router.get("/query")
+def get_non_completed_tasks(
+    completed:bool,
+    session=Depends(get_session)
+):
+    tasks_not_completed = session.exec(
+        select(Task).where(Task.task_status == completed)
+    ).all()
+    return tasks_not_completed
+    
+    

@@ -1,0 +1,35 @@
+RESTful Task Manager API built with FastAPI and SQLModel.
+Supports authentication, CRUD operations, pagination, filtering, and task assignment.
+
+
+JWT Authentication
+Password Hashing
+CRUD for Users
+CRUD for Tasks
+Pagination
+Filtering
+SQLModel ORM
+PostgreSQL (Neon)
+Dependency Injection
+
+
+FastAPI
+SQLModel
+PostgreSQL
+Passlib
+python-jose
+Pydantic
+Uvicorn
+
+CRUD
+✅ SQLModel ORM
+✅ Routers
+✅ Dependency Injection
+✅ Query parameters
+✅ Pagination
+✅ Filtering
+✅ Relationships
+✅ Password hashing
+✅ JWT authentication
+✅ Environment variables
+✅ CORS
