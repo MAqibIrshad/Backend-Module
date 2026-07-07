@@ -1,17 +1,9 @@
 "Pause this function until this task finishes, but let the server work on other requests in the meantime."
-from fastapi import FastAPI, Depends, HTTPException, status
-# from pydantic import BaseModel
-# from fastapi import status
-# from typing import Optional
-# from fastapi import HTTPException
+from fastapi import FastAPI
 from database import create_db_tables
 from contextlib import asynccontextmanager
-from database import get_session
-# from sqlmodel import Session, select
-# from schemas import Task, TaskCreate, TaskPut, TaskPatch, TaskResponse
 from routers.tasks import task_router
 from routers.users import user_router
-from models import User, Task
 from fastapi.middleware.cors import CORSMiddleware
 
 @asynccontextmanager

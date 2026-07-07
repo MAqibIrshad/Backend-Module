@@ -95,7 +95,7 @@ def get_task_by_name(task_name:str,  current_user:User, session: Session=Depends
     if task_to_get.user_id != current_user.user_id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="You are not allowed to update"
+            detail="You are not allowed to get task by name"
         )
 
     return task_to_get
@@ -115,7 +115,7 @@ def delete_task(task_id: int, current_user:User, session:Session = Depends(get_s
     if task_to_delete.user_id != current_user.user_id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="You are not allowed to update"
+            detail="You are not allowed to delete"
         )
 
     session.delete(task_to_delete)

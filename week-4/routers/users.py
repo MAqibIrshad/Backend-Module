@@ -1,11 +1,9 @@
 
 from fastapi import APIRouter, Depends, status, HTTPException
 from sqlmodel import Session, select
-from models import Task
-from schemas import TaskResponse, TaskCreate, TaskPatch, TaskPut
 from crud import get_user_by_name, update_user_field, update_user, delete_user, get_all_users, register_user
 from database import get_session
-from schemas import UserCreate, UserPatch, UserPut, UserResponse, UserRead, UserLogin, Token
+from schemas import UserCreate, UserPatch, UserPut, UserResponse, UserLogin, Token
 from auth import create_access_token, get_current_user, verifyPassword
 from models import User
 
@@ -18,8 +16,8 @@ user_router = APIRouter(
 
 
 @user_router.get("/")
-def get_users(current_user= Depends(get_current_user), session: Session = Depends(get_session)):
-    return get_all_users(current_user, session)
+def get_users(session: Session = Depends(get_session)):
+    return get_all_users(session)
 
 @user_router.post("/create-user", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def create_user(
